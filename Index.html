@@ -1,0 +1,243 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>حضور رياض الأطفال</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;background:#f4f6fb;color:#1c2540}
+header{background:#2f3e8f;color:#fff;padding:12px 14px}header h1{margin:0 0 8px;font-size:18px}
+input[type=date]{font-size:16px;padding:6px 8px;border-radius:8px;border:0;width:100%}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:10px;background:#e5e9f6;position:sticky;top:0}
+.t{flex:none;border:0;border-radius:18px;padding:8px 14px;font-size:15px;background:#fff;color:#2f3e8f}.t.on{background:#2f3e8f;color:#fff}
+main{padding:10px;max-width:640px;margin:auto}
+.cnt{display:flex;gap:8px;margin-bottom:10px}.cnt div{flex:1;background:#fff;border-radius:12px;text-align:center;padding:8px;font-size:13px}.cnt b{display:block;font-size:22px}
+.s{display:flex;align-items:center;gap:6px;background:#fff;border-radius:12px;padding:8px 10px;margin-bottom:6px}.s span{flex:1;font-size:15px}
+.b{border:2px solid #cfd6ec;background:#fff;border-radius:10px;padding:8px 12px;font-size:15px;color:#555}
+.b.p{background:#1f9d57;border-color:#1f9d57;color:#fff}.b.a{background:#d6403f;border-color:#d6403f;color:#fff}
+.act{width:100%;border:0;border-radius:12px;padding:13px;font-size:17px;margin:6px 0;color:#fff;background:#2f3e8f}
+.act.g{background:#1f9d57}.act.l{background:#fff;color:#2f3e8f;border:2px solid #2f3e8f}
+.ok{text-align:center;color:#1f9d57;font-weight:bold;padding:8px}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;font-size:14px;text-align:center}
+th{background:#2f3e8f;color:#fff;padding:8px 4px}td{padding:9px 4px;border-bottom:1px solid #e5e9f6}tfoot td{font-weight:bold;background:#e5e9f6}
+.n{color:#999}input.add{width:100%;font-size:16px;padding:10px;border:2px solid #cfd6ec;border-radius:10px;margin-top:6px}
+</style></head><body>
+<header><h1>حضور رياض الأطفال - كلاسيرا</h1><input type="date" id="d"></header>
+<div class="tabs" id="tabs"></div><main id="app"></main>
+<script>
+const L=[["الانتماء",`محمد عمر عبدالله اليحيي
+نوره عبدالرحمن عبدالله الرميح
+ابراهيم سليمان ابراهيم الجمل
+ابراهيم مهنا محمد العنزي
+سعود ياسر سليمان الحمود
+سليمان صالح عبدالرحمن العقيل
+نجد احمد علي القبس
+ريتال محمد بندر العجمي
+عمر علي عراب الدوسري
+تميم اديب محمد الراجحي
+محمد وائل محمد ادريس
+سعيد سلطان محمد الصيعري
+سيلا سليمان محمد القحطاني
+تركي العنزي`],["الولاء",`اسماء انور رواف العنزي
+ديما جابر محمد الشويمي
+العنود عبدالمجيد عبدالله العيد
+مسلم محمد مسلم الحربي
+سيف فيصل فهد التويجري
+عبدالعزيز ناصر فهد الخلواني
+ريفال ماجد العتيبي
+فيصل مثيب صقر العتيبي
+جوليا خالد عبدالله الوليدي
+صالح حمد صالح الحبيب
+تمارا حمد علي السحيباني
+فارس عبدالله محمد الحسين
+فهد رامي الربيعان
+ريان خالد عبدالعزيز التويجري`],["الإبداع",`وئام خالد عبد العزيز الراجحي
+الوليد عبدالله سليمان الدهش
+محمد لؤي محمد طعمه
+غني امجد محمد طعمه
+دانه عبدالرحمن عبدالله الرميح
+يوسف سعود بدر العصيمي
+نجد عبد الله علي المعلث
+خالد وليد خليفة الخليفة
+تركي احمد عبد الله الخليفة
+سلطان عبد الرحمن محمد العليان
+اياد رائد محمد السلامه
+طلال بندر العنزي
+ريان بندر العنزي
+حور محمد حسان الخالدي
+ترف بدر عبدالرحمن العتيبي
+بندر فهد محمد القحطاني
+نواف أيوب محمد الرشيد
+اريام محمد عبدالعزيز البليهي
+منصور سلطان عبدالعزيز الغفيص
+فهد عبدالرحمن فهد المرضي`],["التعاون",`أديم إبراهيم عبدالله المطوع
+محمد عبد الله موسى الموسى
+يزيد احمد الصايغ
+فهد محمد عبدالله الرشود
+شدون صلاح عبدالعزيز الراجحي
+رتون ماجد مرجي الشمالني
+لين صالح بجاد العصيمي
+ابراهيم محمد حمدان الحمدي
+سعد سعود الحربي
+توق ماجد الدريعي الشمري
+فهد سعود فهد بن عبودي الشريف
+سعد عبدالله ناصر الجديع
+فرح صالح عبدالرحمن العقيل
+اميره عبدالله خلف المطيري
+جود محمد بداح القحطاني
+هتون ماجد الموسى
+ماريا سعود عبدالرحمن الفيروز
+العنود مساعد الوابل
+بدر محمد بندر العجمي
+عبدالله حمود عبدالله السويلمي`],["الوفاء",`فهد احمد فهد الفهد
+عبدالمحسن محمد علي المنجم
+ناصر سلطان محمد العتيبي
+صالح عبدالرحمن صالح البطي
+رتيل مهند محمد الحديثي
+سليمان عون حاضر القحطاني
+اوس عبدالله عبدالرحمن الهييبي
+راكان رامي سليمان الربيعان
+بندر احمد مفضي العنزي
+فرح عبدالمحسن عمار الدوسري
+ماضي جاسر احمد الماضي
+عبدالعزيز دهيش محمد الحربي
+عبدالرحمن عبدالكريم علي اللحيدان
+ساره قرامز عمر الصيعري
+سامي احمد عيسى المطرفي
+عمر احمد مفرح العنزي
+هناي ياسر ابراهيم الزغيبي
+نواف فهد علي القبس
+لطيفه عبدالرحمن عبدالله الناصر
+سام صلاح علي الخولاني
+غيث عبدالله احمد حمامه`],["الإنجاز",`ديما هشام رباح الشاوي
+محمد يونس محمد الراجحي
+منيره معاذ عبدالله العقيل
+ايلاف خالد الدخيل
+مسك ظاهر متعب العنزي
+فارس عبدالرحمن صالح البطي
+الجوهره عبدالرحمن علي المديد
+البندري عمر سلطان السلطان
+عبد العزيز خالد عبد العزيز الراجحي
+ميس معاذ سعد اللحيدان
+يافا حسين الصغير
+لارا عبدالمجيد محمد الدويش
+سلطان عدنان العقيل
+ساره عبدالله موسى الموسى
+عادل محمد ضيف الله الضعيان
+الين منصور يوسف اليوسف
+راكان خالد العنزي
+كنده محمد عبدالعزيز الشايع
+سلطان حاتم حمد البراك
+ميلا إبراهيم عبدالعزيز الطباش
+علي عمر علي الجاسر
+نايف أحمد عبد الله الحربي`],["الإلهام",`شذى عبدالكريم اللحيدان
+جياد خالد سيف العساف
+عروب فيصل فهد الهباد
+جمان فيصل محمد البتلاء
+خالد وليد خالد الديحان
+وسن مطر عبيد الحربي
+رزن مطر عبيد الحربي
+حنين صالح عبدالعزيز المشاري
+مسره عبدالله سلطان الشوشان
+ايلان محمد يحيى كريري
+لارا عبدالرحمن ابراهيم المجيدل
+منال عبدالله خالد المطرودي
+اديب عمران العمران
+عبدالرحمن اديب محمد الراجحي
+سعد عوض سعد المطيري
+عمر إبراهيم عبدالعزيز الجربوع
+هيفاء علي محمد العنقري
+إبراهيم عبدالوهاب سليمان اليحيى
+ملك صالح راشد النقيه
+رانيا محمد عبدالرحمن الفراج`],["الابتكار",`ابراهيم سليمان محمد العريني
+طلال عبدالله المطيري
+اياد عبد الكريم صالح اللحيدان
+ديم سالم عبدالله صباح
+خالد فيصل فهد التويجري
+لمار محمد عبد الله الطريقي
+يارا محمد مسلم الحربي
+محمد عبدالله محمد المحمود
+العنود عزام حمود النفيعي
+الريم بدر ناصر النشمي
+نجد محمد عبدالمحسن الواصل
+ديم انس بن نوح
+أميره عبد الله حلو الشمري
+ليان فهد عبدالله العنزي
+فالح عمر فالح العنزي
+هتيف عايد خالد العايد
+جود محمد ذواد الذواد
+سعود عبدالعزيز مساعد باحاذق
+جمان ضيف الله سعد اللحيدان
+سلمان محمد عبدالرحمن عيسى
+ليان البراء سليمان اليحيى`],["العطاء",`مها فهد محمد الحربين
+فراس عبدالله فلاح الحارثي
+خالد سعيد احمد بلفقيه
+لارا عبدالله علي الخضير
+حور عبدالرحمن نومان العنزي
+ناصر محمد ناصر العميره
+سرى أحمد محمد المطلق
+شيخة امين سليمان الدخيل
+يزيد وليد صالح الشمالي
+لانا فايز نزال الشمري
+ريان احمد المطيري
+عبدالله إبراهيم عبدالله العقيل
+عبدالعزيز خالد صالح الغامدي
+محمد يوسف محمد الطرباق
+ديمة ايمن محمد الخضيري
+سعود هاني عبدالله العبري
+لارا عبدالرحمن محمد العنزي
+ديما البراء عبدالله الغنام
+ريما البراء عبدالله الغنام
+محمد خالد مقداد قصاص
+لينا سعد علي اللحيدان
+تركي عبدالله الشهري`],["الطموح",`داليا عبدالمحسن عبدالله الحمد
+دانية ماجد احمد العبيد
+خالد يزيد خالد الخويطر
+راكان أحمد مرزوق أبو صعليك
+انس سعيد علي باحاذق
+وليد وائل حسين مشعل
+سيرين محمد حسان الخالدي
+فهد بدر إبراهيم المحمود
+ماجد سليمان عبدالمنعم العبدالمنعم
+سعود عمر عبدالعزيز الراجحي
+رغد عبدالله محمد الماضي
+عبد العزيز ابراهيم عبد العزيز الفرهود
+طارق زياد حمد القرعاوي
+ورد محمد وجيه أبو الجود
+لولوه مضحي سعيد المطيري
+ليان احمد عبدالرحمن الجوير
+معاذ راشد الحربي
+بتال متعب فليح العنزي
+هتان سليمان محمد الجار الله
+حمد محمد البكري`]];
+function ld(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}}
+function sv(){try{localStorage.setItem('r',JSON.stringify(R));localStorage.setItem('a',JSON.stringify(A))}catch(e){}}
+let R=ld('r');if(!R){R={};L.forEach(c=>R[c[0]]=c[1].trim().split("\n"))}
+let A=ld('a')||{},cls=L[0][0],edit=false;
+const $=id=>document.getElementById(id),dt=$('d');
+const t=new Date();dt.value=t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,0)+'-'+String(t.getDate()).padStart(2,0);
+dt.onchange=()=>render();
+const rec=c=>{const k=dt.value+'|'+c;return A[k]||(A[k]={m:{},ok:0})};
+const cnt=c=>{const r=rec(c);let p=0,a=0;R[c].forEach(n=>{if(r.m[n]===1)p++;else if(r.m[n]===0)a++});return[p,a]};
+const pc=(x,y)=>y?Math.round(x/y*100)+'%':'-';
+function render(){
+$('tabs').innerHTML=L.map(c=>`<button class="t ${c[0]==cls?'on':''}" data-c="${c[0]}">${c[0]}${rec(c[0]).ok?' ✓':''}</button>`).join('')+`<button class="t ${cls=='*'?'on':''}" data-c="*">📊 الملخص</button>`;
+let h='';
+if(cls=='*'){let tp=0,ta=0;
+h='<table><tr><th>الفصل</th><th>حضور</th><th>غياب</th><th>% حضور</th><th>% غياب</th></tr>'+L.map(c=>{const r=rec(c[0]);if(!r.ok)return`<tr><td>${c[0]}</td><td colspan=4 class=n>لم يُعتمد</td></tr>`;const[p,a]=cnt(c[0]);tp+=p;ta+=a;return`<tr><td>${c[0]}</td><td>${p}</td><td>${a}</td><td>${pc(p,p+a)}</td><td>${pc(a,p+a)}</td></tr>`}).join('')+`<tfoot><tr><td>الإجمالي</td><td>${tp}</td><td>${ta}</td><td>${pc(tp,tp+ta)}</td><td>${pc(ta,tp+ta)}</td></tr></tfoot></table><p class=n style="text-align:center">الإجمالي يشمل الفصول المعتمدة فقط لتاريخ اليوم المحدد</p>`;
+}else{const r=rec(cls),[p,a]=cnt(cls),n=R[cls].length;
+h=`<div class=cnt><div><b style="color:#1f9d57">${p}</b>حاضر</div><div><b style="color:#d6403f">${a}</b>غائب</div><div><b>${n-p-a}</b>لم يُرصد</div></div>`;
+h+=r.ok?`<div class=ok>✓ تم اعتماد الحضور</div><button class="act l" data-act=un>تعديل الحضور</button>`:`<button class="act l" data-act=all>الكل حاضر</button>`;
+h+=R[cls].map((n,i)=>{const m=r.m[n];return`<div class=s><span>${i+1}. ${n}</span><button class="b ${m===1?'p':''}" data-act=p data-i=${i}>حاضر</button><button class="b ${m===0?'a':''}" data-act=a data-i=${i}>غائب</button>${edit?`<button class=b data-act=del data-i=${i}>✕</button>`:''}</div>`}).join('');
+if(!r.ok)h+=`<button class="act g" data-act=ok>اعتماد الحضور والغياب</button>`;
+h+=`<button class="act l" data-act=ed>${edit?'إنهاء إدارة الطلاب':'إدارة الطلاب (إضافة / حذف)'}</button>`;
+if(edit)h+=`<input class=add id=nn placeholder="اسم الطالب الجديد ثم اضغطي إضافة"><button class=act data-act=add>إضافة</button>`}
+$('app').innerHTML=h}
+document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+if(b.dataset.c){cls=b.dataset.c;edit=false;render();scrollTo(0,0);return}
+const x=b.dataset.act;if(!x)return;const r=cls!='*'&&rec(cls),i=b.dataset.i;
+if(x=='p'||x=='a'){if(r.ok)return;const n=R[cls][i];r.m[n]=r.m[n]===(x=='p'?1:0)?undefined:(x=='p'?1:0)}
+if(x=='all')R[cls].forEach(n=>{if(r.m[n]===undefined)r.m[n]=1});
+if(x=='un')r.ok=0;
+if(x=='ok'){const[p,a]=cnt(cls),u=R[cls].length-p-a;if(u&&!confirm(u+' طالب لم يُرصدوا وسيُحسبون غياب. متابعة؟'))return;R[cls].forEach(n=>{if(r.m[n]===undefined)r.m[n]=0});r.ok=1;cls='*'}
+if(x=='ed')edit=!edit;
+if(x=='del'&&confirm('حذف '+R[cls][i]+'؟'))R[cls].splice(i,1);
+if(x=='add'){const v=$('nn').value.trim();if(v)R[cls].push(v)}
+sv();render()});
+render();
+</script></body></html>
